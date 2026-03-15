@@ -25,13 +25,12 @@ Building a movie recommendation engine using **Link Prediction** concepts. We tr
 - **Strategy:** "Link Hide" (80% Train / 20% Test split).
 - **Metric:** **Precision @ 5** calculated across a sample of test users.
 
-### Phase 5: Feature Engineering & Hybrid Model
+### Phase 5: Feature Engineering & Hybrid Model (Finalized)
 - **User Features:** Normalized Age, One-Hot Encoded Gender and Occupation.
 - **Movie Features:** Binary Genre flags (19 categories).
-- **Metric:** **Cosine Similarity** used to measure "Content Proximity" in feature space.
-- **Hybrid Logic:** Combined Graph (Jaccard) + Content (Cosine) into a weighted similarity score:
-  $$Score = (0.7 \times \text{GraphSim}) + (0.3 \times \text{ContentSim})$$
-- **Result:** Successfully built a recommender that handles "sparse" neighborhoods by falling back on demographic data.
+- **Hybrid Logic:** Combined Graph (Jaccard) + Content (Cosine) into a weighted similarity score.
+- **Explainability:** Implemented `recommend_with_explanations` to distinguish between **Behavioral Peers** (shared taste) and **Demographic Peers** (similar profile).
+- **Result:** Successfully built a recommender that handles "sparse" neighborhoods and provides human-readable justifications for its choices.
 
 ---
 
@@ -56,5 +55,5 @@ Building a movie recommendation engine using **Link Prediction** concepts. We tr
 - `graph_construction.ipynb`: NetworkX graph initialization and metadata.
 - `heuristic_recommender.ipynb`: Jaccard-based baseline logic.
 - `evaluation.ipynb`: "Link Hide" evaluation framework.
-- `feature_engineering.ipynb`: Hybrid model combining content and graph data.
+- `feature_engineering.ipynb`: Hybrid model combining content and graph data + Explainability testing.
 - `download_data.py`: Setup script.
