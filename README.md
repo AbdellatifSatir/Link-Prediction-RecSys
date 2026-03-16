@@ -19,7 +19,14 @@ The project is structured into a progressive pipeline:
 4.  **Hybrid Approach:** Combining **Graph Topology** with **Content Features** (User Demographics & Movie Genres) using a weighted similarity score.
 5.  **Graph Representation Learning (Node2Vec):** Transitioning to learned 64D embeddings via uniform random walks and Word2Vec.
 6.  **Specialized Heterogeneous Embeddings (Metapath2Vec):** Optimizing random walks for the bipartite structure using **User-Movie-User (UMU)** metapaths to capture deep collaborative filtering intent.
-7.  **Evaluation:** Measuring model performance using the **"Link Hide"** strategy and **Precision @ K**.
+7.  **Unified Evaluation Benchmark:** A head-to-head comparison of all models using **Precision@10**, **Recall@10**, and **MRR**.
+
+## 📊 Key Findings
+
+From our **Unified Benchmark**, we observed:
+- **Jaccard Heuristic** is a surprisingly strong performer on this dataset, outperforming basic random-walk embeddings.
+- **Hybrid Model** provides robust "Cold Start" recommendations by incorporating user demographics.
+- **Embedding Models** (Node2Vec/Metapath2Vec) currently struggle with graph sparsity, providing the technical motivation to move towards **Graph Neural Networks (GNNs)**.
 
 ## 📂 Project Structure
 
@@ -29,7 +36,7 @@ The project is structured into a progressive pipeline:
 - `feature_engineering.ipynb`: Engineering user/movie vectors and implementing the Hybrid model.
 - `node2vec_recommender.ipynb`: Implementing latent representation learning via random walks.
 - `metapath2vec_recommender.ipynb`: Specialized bipartite walks for superior collaborative embeddings.
-- `evaluation.ipynb`: Framework for testing accuracy using hidden edges.
+- `unified_benchmark.ipynb`: Comprehensive evaluation and performance analysis across all models.
 - `data/`: (Ignored in Git) Raw MovieLens 100k dataset.
 
 ## ⚙️ Setup & Installation
@@ -42,7 +49,7 @@ The project is structured into a progressive pipeline:
 
 2.  **Install Dependencies:**
     ```bash
-    pip install pandas numpy networkx matplotlib seaborn scikit-learn
+    pip install pandas numpy networkx matplotlib seaborn scikit-learn gensim
     ```
 
 3.  **Download Dataset:**
@@ -55,8 +62,8 @@ The project is structured into a progressive pipeline:
 
 - [x] **Node2Vec Embeddings:** Learning latent representations via random walks.
 - [x] **Metapath2Vec:** Specialized walks for bipartite structures.
+- [x] **Unified Benchmark:** Systematic evaluation comparing all methods.
 - [ ] **Graph Neural Networks (GNNs):** Implementing **LightGCN** for state-of-the-art link prediction.
-- [ ] **Unified Benchmark:** Systematic evaluation comparing all methods.
 
 ## 📄 License
 This project uses the MovieLens 100k dataset. Please refer to the [GroupLens website](https://grouplens.org/datasets/movielens/100k/) for licensing details.
