@@ -17,15 +17,19 @@ The project is structured into a progressive pipeline:
 2.  **Bipartite Graph Construction:** Building a `NetworkX` graph with typed nodes (`u_` for users, `m_` for movies).
 3.  **Heuristic Baseline:** Implementing structural similarity metrics like **Jaccard Coefficient** and **Common Neighbors**.
 4.  **Hybrid Approach:** Combining **Graph Topology** with **Content Features** (User Demographics & Movie Genres) using a weighted similarity score.
-5.  **Evaluation:** Measuring model performance using the **"Link Hide"** strategy and **Precision @ K**.
+5.  **Graph Representation Learning (Node2Vec):** Transitioning to learned 64D embeddings via uniform random walks and Word2Vec.
+6.  **Specialized Heterogeneous Embeddings (Metapath2Vec):** Optimizing random walks for the bipartite structure using **User-Movie-User (UMU)** metapaths to capture deep collaborative filtering intent.
+7.  **Evaluation:** Measuring model performance using the **"Link Hide"** strategy and **Precision @ K**.
 
 ## 📂 Project Structure
 
 - `eda.ipynb`: Initial data exploration and visualization.
 - `graph_construction.ipynb`: Converting tabular data into a `NetworkX` bipartite graph.
 - `heuristic_recommender.ipynb`: Building the baseline Jaccard-based recommender.
-- `evaluation.ipynb`: Framework for testing accuracy using hidden edges.
 - `feature_engineering.ipynb`: Engineering user/movie vectors and implementing the Hybrid model.
+- `node2vec_recommender.ipynb`: Implementing latent representation learning via random walks.
+- `metapath2vec_recommender.ipynb`: Specialized bipartite walks for superior collaborative embeddings.
+- `evaluation.ipynb`: Framework for testing accuracy using hidden edges.
 - `data/`: (Ignored in Git) Raw MovieLens 100k dataset.
 
 ## ⚙️ Setup & Installation
@@ -49,9 +53,10 @@ The project is structured into a progressive pipeline:
 
 ## 📈 Future Roadmap
 
-- [ ] **Node2Vec Embeddings:** Learning latent representations via random walks.
-- [ ] **Metapath2Vec:** Specialized walks for bipartite structures.
+- [x] **Node2Vec Embeddings:** Learning latent representations via random walks.
+- [x] **Metapath2Vec:** Specialized walks for bipartite structures.
 - [ ] **Graph Neural Networks (GNNs):** Implementing **LightGCN** for state-of-the-art link prediction.
+- [ ] **Unified Benchmark:** Systematic evaluation comparing all methods.
 
 ## 📄 License
 This project uses the MovieLens 100k dataset. Please refer to the [GroupLens website](https://grouplens.org/datasets/movielens/100k/) for licensing details.

@@ -30,22 +30,32 @@ Building a movie recommendation engine using **Link Prediction** concepts. We tr
 - **Movie Features:** Binary Genre flags (19 categories).
 - **Hybrid Logic:** Combined Graph (Jaccard) + Content (Cosine) into a weighted similarity score.
 - **Explainability:** Implemented `recommend_with_explanations` to distinguish between **Behavioral Peers** (shared taste) and **Demographic Peers** (similar profile).
-- **Result:** Successfully built a recommender that handles "sparse" neighborhoods and provides human-readable justifications for its choices.
+
+### Phase 6: Graph Representation Learning (Node2Vec)
+- **Algorithm:** DeepWalk-style uniform random walks.
+- **Embeddings:** 64D vectors learned using `gensim`'s Word2Vec.
+- **Logic:** Recommendations based on cosine similarity in the latent embedding space.
+
+### Phase 7: Heterogeneous Embeddings (Metapath2Vec)
+- **Algorithm:** Structured random walks following the **User-Movie-User (UMU)** metapath.
+- **Goal:** Capture deep collaborative filtering intent by forcing the walker to alternate between node types.
+
+### Phase 8: Unified Benchmark & Interpretation (Finalized)
+- **Goal:** Systematic head-to-head comparison of Jaccard, Hybrid, Node2Vec, and Metapath2Vec.
+- **Metrics:** Precision@10, Recall@10, and MRR.
+- **Key Finding**: Jaccard (0.149 Precision) currently leads, followed by Hybrid (0.121). Embedding models struggle with sparsity, motivating the move to GNNs.
+- **Documentation**: `unified_benchmark.ipynb` updated with detailed cell-by-cell explanations and strategic analysis.
 
 ---
 
 ## 🚀 Next Steps (Roadmap)
 
-### Step 1: Graph Representation Learning (Node2Vec)
-- Implement random walks to transform nodes into 64D or 128D embeddings.
-- Predict links using the Dot Product or Cosine Similarity between user and movie vectors.
-
-### Step 2: Specialized Embeddings (Metapath2Vec)
-- Optimize random walks for the bipartite structure (User-Movie-User paths).
-
-### Step 3: Graph Neural Networks (LightGCN)
+### Step 1: Graph Neural Networks (LightGCN)
 - Move to **Message Passing** architectures using PyTorch Geometric.
 - This represents the "Gold Standard" for modern Link Prediction in RecSys.
+
+### Step 2: Hyperparameter Optimization
+- Fine-tune walk length, window size, and embedding dimensions for Node2Vec and Metapath2Vec to bridge the performance gap with the baseline.
 
 ---
 
@@ -54,6 +64,9 @@ Building a movie recommendation engine using **Link Prediction** concepts. We tr
 - `eda.ipynb`: Detailed dataset analysis.
 - `graph_construction.ipynb`: NetworkX graph initialization and metadata.
 - `heuristic_recommender.ipynb`: Jaccard-based baseline logic.
-- `evaluation.ipynb`: "Link Hide" evaluation framework.
-- `feature_engineering.ipynb`: Hybrid model combining content and graph data + Explainability testing.
+- `node2vec_recommender.ipynb`: Node2Vec implementation and T-SNE.
+- `metapath2vec_recommender.ipynb`: Metapath2Vec implementation.
+- `evaluation.ipynb`: Initial "Link Hide" evaluation framework.
+- `feature_engineering.ipynb`: Hybrid model combining content and graph data.
+- `unified_benchmark.ipynb`: Comparative analysis and professional report.
 - `download_data.py`: Setup script.
