@@ -1,73 +1,37 @@
-# Link Prediction for Recommender Systems (RecSys)
+# Movie Recommender System (Link Prediction on Graphs)
 
-This project explores the concept of **Link Prediction** as a foundation for building robust recommendation engines. Using the classic **MovieLens 100k** dataset, we model user-item interactions as a **Bipartite Graph** and predict missing edges to generate personalized recommendations.
+A movie recommendation engine built by reframing the problem as **Link Prediction on a Bipartite Graph**. Instead of traditional matrix factorization, we treat users and movies as nodes in a network, where an "edge" represents a high rating (>= 4).
 
-## 🚀 Project Overview
+## 🚀 Key Highlights
+- **Architecture:** Transitioned from simple heuristics (Jaccard) to modern Deep Graph Learning (**LightGCN**).
+- **Hybrid Signal:** Combines **Collaborative Filtering** (graph topology) with **Content-Based Filtering** (demographics and genres).
+- **Breakthrough:** Our **Feature-Augmented GNN** achieved a **Precision@10 of 0.3390**, doubling the performance of pure structural models.
+- **Explainability:** Includes a `recommend_with_explanations` logic to distinguish between Behavioral and Demographic peers.
 
-In traditional RecSys, we often think of a matrix of ratings. Here, we pivot to **Network Science**:
-- **Nodes:** Users and Movies.
-- **Edges:** A link exists if a user "liked" a movie (Rating $\ge$ 4).
-- **Goal:** Predict which movie nodes a user node is most likely to connect with in the future.
+## 📊 Performance Leaderboard
+| Model | Precision@10 | Recall@10 | MRR |
+| :--- | :--- | :--- | :--- |
+| **Augmented GNN (Phase 10)** | **0.3390** | **0.1697** | **0.6085** |
+| LightGCN (Pure) | 0.1440 | 0.1793 | 0.3754 |
+| Jaccard Baseline | 0.1460 | 0.1680 | 0.3815 |
+| Hybrid Model | 0.1030 | 0.0888 | 0.2750 |
+| Node2Vec/Metapath2Vec | < 0.010 | < 0.010 | < 0.010 |
 
-## 🛠️ Methodology
+## 📂 File Structure
+- `graph_construction.ipynb`: Builds the bipartite graph with NetworkX.
+- `heuristic_recommender.ipynb`: Jaccard similarity baseline.
+- `feature_engineering.ipynb`: Demographic and genre vectorization.
+- `node2vec_recommender.ipynb`: Random walk-based shallow embeddings.
+- `lightgcn_recommender.ipynb`: Modern GNN implementation using PyTorch Geometric.
+- **`feature_augmented_gnn.ipynb`**: **Our current state-of-the-art model.**
+- `unified_benchmark.ipynb`: Head-to-head comparison of all models.
 
-The project is structured into a progressive pipeline:
+## 🛠️ Installation
+```bash
+pip install torch torch-geometric pandas numpy networkx scikit-learn gensim
+python download_data.py
+```
 
-1.  **Exploratory Data Analysis (EDA):** Analyzing sparsity, degree distribution, and popularity bias.
-2.  **Bipartite Graph Construction:** Building a `NetworkX` graph with typed nodes (`u_` for users, `m_` for movies).
-3.  **Heuristic Baseline:** Implementing structural similarity metrics like **Jaccard Coefficient** and **Common Neighbors**.
-4.  **Hybrid Approach:** Combining **Graph Topology** with **Content Features** (User Demographics & Movie Genres).
-5.  **Graph Representation Learning (Node2Vec):** Transitioning to learned 64D embeddings via uniform random walks.
-6.  **Heterogeneous Embeddings (Metapath2Vec):** Optimizing random walks for the bipartite structure using **User-Movie-User (UMU)** metapaths.
-7.  **Graph Neural Networks (LightGCN):** Implementing state-of-the-art message passing to explicitly propagate the collaborative filtering signal.
-8.  **Unified Evaluation Benchmark:** A head-to-head comparison of all models using **Precision@10**, **Recall@10**, and **MRR**.
-
-## 📊 Key Findings
-
-From our **Unified Benchmark (The Grand Finale)**, we observed:
-- **Winner:** **LightGCN** is the superior model for discovery, achieving the highest **Recall@10 (0.179)** while matching the Jaccard baseline in precision.
-- **Structural Power:** **Jaccard Similarity** remains a surprisingly strong baseline (Precision@10: 0.146), outperforming shallow embeddings.
-- **Content vs. Behavior:** Actual viewing behavior (graph edges) is a much stronger predictor of interest than user demographics (Age/Gender/Occupation).
-- **GNN Advantage:** Multi-hop linear message passing in LightGCN captures more complex latent relationships than random-walk based methods like Node2Vec.
-
-## 📂 Project Structure
-
-- `eda.ipynb`: Initial data exploration and visualization.
-- `graph_construction.ipynb`: Converting tabular data into a `NetworkX` bipartite graph.
-- `heuristic_recommender.ipynb`: Building the baseline Jaccard-based recommender.
-- `feature_engineering.ipynb`: Engineering user/movie vectors and implementing the Hybrid model.
-- `node2vec_recommender.ipynb`: Implementing latent representation learning via random walks.
-- `metapath2vec_recommender.ipynb`: Specialized bipartite walks for superior collaborative embeddings.
-- `lightgcn_recommender.ipynb`: GNN implementation using PyTorch Geometric and BPR loss.
-- `unified_benchmark.ipynb`: Comprehensive evaluation and performance analysis across all models.
-- `data/`: (Ignored in Git) Raw MovieLens 100k dataset.
-
-## ⚙️ Setup & Installation
-
-1.  **Clone the Repository:**
-    ```bash
-    git clone https://github.com/AbdellatifSatir/Link-Prediction-RecSys.git
-    cd Link-Prediction-RecSys
-    ```
-
-2.  **Install Dependencies:**
-    ```bash
-    pip install pandas numpy networkx matplotlib seaborn scikit-learn gensim torch torch-geometric
-    ```
-
-3.  **Download Dataset:**
-    Run the provided utility script:
-    ```bash
-    python download_data.py
-    ```
-
-## 📈 Future Roadmap
-
-- [x] **Node2Vec & Metapath2Vec Embeddings**
-- [x] **Unified Benchmark Completion**
-- [x] **LightGCN Implementation**
-- [ ] **Hyperparameter Fine-Tuning:** Optimizing LR, embedding dims, and walk counts.
-- [ ] **Graph Attention (GAT):** weighing neighbor influence for better precision.
-
-## 📄 License
-This project uses the MovieLens 100k dataset. Please refer to the [GroupLens website](https://grouplens.org/datasets/movielens/100k/) for licensing details.
+## 🎯 Next Steps
+- Implement **Weighted Link Prediction** (distinguishing between rating 4 and 5).
+- Experiment with **Graph Attention Networks (GAT)** for dynamic neighbor weighting.
