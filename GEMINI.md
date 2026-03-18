@@ -40,28 +40,26 @@ Building a movie recommendation engine using **Link Prediction** concepts. We tr
 - **Algorithm:** Structured random walks following the **User-Movie-User (UMU)** metapath.
 - **Goal:** Capture deep collaborative filtering intent by forcing the walker to alternate between node types.
 
-### Phase 8: Graph Neural Networks (LightGCN) (Finalized)
-- **Library:** `PyTorch Geometric` (PyG).
-- **Architecture:** 3-layer message passing with linear aggregation and layer combination.
-- **Loss Function:** **Bayesian Personalized Ranking (BPR)** with negative sampling.
-- **Result:** Modern GNN architecture that explicitly propagates the collaborative filtering signal, bridging the gap between latent embeddings and structural heuristics.
-
 ### Phase 9: Unified Benchmark & The Grand Finale (Finalized)
 - **Goal:** Systematic head-to-head battle between Jaccard, Hybrid, Node2Vec, Metapath2Vec, and LightGCN.
 - **Result:** **LightGCN** emerged as the superior model for discovery, achieving the highest **Recall@10 (0.179)** while matching the Jaccard baseline in precision.
-- **Insight:** Proved that multi-hop message passing in GNNs captures more complex latent relationships than simple neighbor counting or random walks.
+
+### Phase 10: Feature-Augmented GNN (The Breakthrough)
+- **Algorithm:** Hybrid LightGCN with Linear Projection Layers.
+- **Logic:** Reused Phase 5 features (Demographics & Genres) to initialize node embeddings (Warm-Start).
+- **Results:** Achieved a **Precision@10 of 0.3390** and **MRR of 0.6085**, doubling the performance of the pure LightGCN baseline.
+- **Insight:** Proved that combining multi-hop structural signals with rich node metadata creates a significantly more accurate and certain recommender system.
 
 ---
 
 ## 🚀 Next Steps (Roadmap)
 
-### Step 1: Hyperparameter Optimization
-- Fine-tune LightGCN's learning rate, embedding dimensions, and regularization weight.
-- Optimize Node2Vec/Metapath2Vec walk parameters to improve their competitive baseline.
+### Step 1: Weighted Link Prediction
+- Incorporate the actual 1-5 star rating values into the GNN message-passing layers to distinguish between 'Liking' and 'Loving' a movie.
 
 ### Step 2: Advanced GNN Architectures
 - Experiment with **Graph Attention Networks (GAT)** to see if weighing neighbor influence further boosts precision.
-- Incorporate **Edge Weights** (actual rating values) into the GNN message passing.
+- Implement **Self-Supervised Learning (SSL)** (like Contrastive Learning) to improve embedding robustness in sparse regions.
 
 ---
 
@@ -74,5 +72,6 @@ Building a movie recommendation engine using **Link Prediction** concepts. We tr
 - `node2vec_recommender.ipynb`: Node2Vec implementation and T-SNE.
 - `metapath2vec_recommender.ipynb`: Metapath2Vec implementation.
 - `lightgcn_recommender.ipynb`: GNN implementation with PyG and BPR loss.
+- `feature_augmented_gnn.ipynb`: Advanced GNN utilizing demographics and genres.
 - `unified_benchmark.ipynb`: Comprehensive evaluation and professional report.
 - `download_data.py`: Setup script.
