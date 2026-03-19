@@ -55,6 +55,10 @@ Building a movie recommendation engine using **Link Prediction** concepts. We tr
 - **Key Discovery:** Discovered a "Complexity Tax." Adding non-linearities, attention weights, or noisy 1-star edges consistently lowered Precision.
 - **Final Verdict:** **Linear Structural Aggregation + Feature Projection** (Phase 10) is the optimal architecture for this bipartite task.
 
+### Phase 14: Scientific Reporting (The Final Synthesis)
+- **Output:** Produced a comprehensive research paper summarizing the journey from local heuristics to feature-augmented GNNs.
+- **Conclusion:** Formally documented that linear structural aggregation outperforms complex attention mechanisms for bipartite movie recommendation.
+
 ---
 
 ## 🏆 Final Conclusion & Success Metric
@@ -69,13 +73,17 @@ We have successfully evolved from a simple Jaccard similarity heuristic (Precisi
 - `eda.ipynb`: Detailed dataset analysis.
 - `graph_construction.ipynb`: NetworkX graph initialization.
 - `heuristic_recommender.ipynb`: Jaccard-based baseline logic.
+- `evaluation.ipynb`: "Link Hide" evaluation strategy (Phase 4).
 - `feature_engineering.ipynb`: Hybrid model combining content and graph data.
 - `node2vec_recommender.ipynb`: Node2Vec implementation.
 - `metapath2vec_recommender.ipynb`: Metapath2Vec implementation.
 - `lightgcn_recommender.ipynb`: Base GNN implementation.
 - `feature_augmented_gnn.ipynb`: CHAMPION MODEL (Phase 10).
-- `weighted_link_prediction.ipynb`: Weighted edge exploration (Phase 11).
 - `gat_recommender.ipynb`: Graph Attention exploration (Phase 12).
 - `graphsage_recommender.ipynb`: GraphSAGE exploration (Phase 13).
 - `unified_benchmark.ipynb`: FINAL REPORT & COMPARISON.
+- `scientific_paper_report.md`: Formal summary of findings and methodology.
+- `README.md`: Project overview and setup instructions.
 - `download_data.py`: Setup script.
+- `GEMINI.md`: Project roadmap and status (this file).
+- `.gitignore`: Git exclusion rules.
